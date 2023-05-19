@@ -1,8 +1,8 @@
 `timescale 1ps/1ps
 module Adder(
-    input src1_i,
-    input src2_i,
-    output sum_o,
+    src1_i,
+    src2_i,
+    sum_o
 );
 //IO
 input [31:0] src1_i;
