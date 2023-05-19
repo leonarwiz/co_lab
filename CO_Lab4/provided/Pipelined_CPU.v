@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
-module Pipe_CPU_1(
+module Pipelined_CPU(
     clk_i,
-    rst_i,
+    rst_i
     );
     
 /****************************************
