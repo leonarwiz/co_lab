@@ -63,7 +63,7 @@ output wire MemtoReg_s5, regWrite_s5;
 
 //Instantiate the components in IF stage
 
-MUX_2to1 #(.size(N)) Mux0( // Modify N, which is the total length of input/output
+MUX_2to1 #(.size(32)) Mux0( // Modify N, which is the total length of input/output
     .src1_i(pc_next0),
     .src2_i(pc_next1_s4),
     .select_i(PCsrc),
@@ -180,7 +180,7 @@ Adder Add_pc_branch(
     .sum_o(pc_next1_s3)
 );
 
-Pipe_Reg #(.size(N)) EX_MEM( // Modify N, which is the total length of input/output
+Pipe_Reg #(.size(6 * 1 + 3 * 32 + 5)) EX_MEM( // Modify N, which is the total length of input/output
     .clk_i(clk_i),
     .rst_i(rst_i),
     .data_i({ MemtoReg_s3, regWrite_s3, branch_s3, MemRead_s3, 
@@ -203,7 +203,7 @@ Data_Memory DM(
 
 assign PCsrc = branch_s4 & zero_s4;
 
-Pipe_Reg #(.size(N)) MEM_WB( // Modify N, which is the total length of input/output
+Pipe_Reg #(.size(2 * 1 + 2 * 32 + 5)) MEM_WB( // Modify N, which is the total length of input/output
     .clk_i(clk_i),
     .rst_i(rst_i),
     .data_i({ MemtoReg_s4, regWrite_s4, ReadData, ALUresult_s4, writeReg1_s4 }),
@@ -213,7 +213,7 @@ Pipe_Reg #(.size(N)) MEM_WB( // Modify N, which is the total length of input/out
 
 //Instantiate the components in WB stage
 
-MUX_2to1 #(.size(N)) Mux3( // Modify N, which is the total length of input/output
+MUX_2to1 #(.size(32)) Mux3( // Modify N, which is the total length of input/output
     .data0_i(ALUresult_s5),
     .data1_i(ReadData_s5),
     .select_i(MemtoReg_s5),
